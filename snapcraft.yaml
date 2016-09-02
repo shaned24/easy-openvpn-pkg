@@ -1,0 +1,42 @@
+name: easy-openvpn
+version: 0
+summary: An easy-to-manage OpenVPN deployment.
+description: |
+    OpenVPN snap with management scripts that simplify PKI and client
+    management for fast, cheap and disposable VPNs. Based on
+    https://github.com/kylemanna/docker-openvpn.
+confinement: strict
+
+apps:
+    easy-openvpn:
+        command: bin/ovpn_run
+        daemon: simple
+        plugs:
+            - network
+            - network-bind
+            - network-control
+    genconfig:
+        command: bin/ovpn_genconfig
+    initpki:
+        command: bin/ovpn_initpki
+    list-clients:
+        command: bin/ovpn_listclients
+    get-client:
+        command: bin/ovpn_getclient
+    status:
+        command: bin/ovpn_status
+    easyrsa:
+        command: usr/bin/easyrsa
+
+parts:
+    packages:
+        plugin: nil
+        stage-packages:
+            - openvpn
+            - easy-rsa
+            - iptables
+    scripts:
+        plugin: dump
+        source: .
+        snap:
+            - bin/*
