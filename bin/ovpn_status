@@ -1,5 +1,7 @@
 #!/bin/sh
 
+source $(cd $(dirname "$0")/..; pwd)/easy-openvpn.profile
+
 #
 # Get OpenVPN server status
 #
