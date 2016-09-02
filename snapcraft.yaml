@@ -15,6 +15,7 @@ apps:
             - network
             - network-bind
             - network-control
+            - firewall-control
     genconfig:
         command: bin/ovpn_genconfig
     initpki:
@@ -25,16 +26,23 @@ apps:
         command: bin/ovpn_getclient
     status:
         command: bin/ovpn_status
-    easyrsa:
-        command: usr/bin/easyrsa
 
 parts:
     packages:
         plugin: nil
         stage-packages:
             - openvpn
-            - easy-rsa
+            - openssl
             - iptables
+    easyrsa:
+        plugin: dump
+        source: https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz
+        organize:
+            easyrsa: usr/local/easyrsa/easyrsa
+            openssl-1.0.cnf: usr/local/easyrsa/openssl-1.0.cnf
+            x509-types: usr/local/easyrsa/x509-types
+        snap:
+            - usr/local/easyrsa
     scripts:
         plugin: dump
         source: .

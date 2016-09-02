@@ -2,7 +2,7 @@
 ## @licence MIT <http://opensource.org/licenses/MIT>
 ## @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
 
-source $(cd $(dirname "$0")/..; pwd)/easy-openvpn.profile
+source $(cd $(dirname "$0"); pwd)/easy-openvpn.profile
 
 if [ -z "$OPENVPN" ]; then
     export OPENVPN="$PWD"
