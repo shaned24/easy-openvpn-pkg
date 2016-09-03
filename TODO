@@ -1,0 +1,4 @@
+Still need to:
+- figure out why iptables nat rules aren't allowed with firewall-control
+- generate clients and connect
+- simplify things further
