@@ -5,7 +5,7 @@ description: |
     OpenVPN snap with management scripts that simplify PKI and client
     management for fast, cheap and disposable VPNs. Based on
     https://github.com/kylemanna/docker-openvpn.
-confinement: strict
+confinement: devmode
 
 apps:
     easy-openvpn:
@@ -16,13 +16,13 @@ apps:
             - network-bind
             - network-control
             - firewall-control
-    genconfig:
-        command: bin/ovpn_genconfig
-    initpki:
-        command: bin/ovpn_initpki
-    list-clients:
+    setup:
+        command: bin/ovpn_setup
+    clients:
         command: bin/ovpn_listclients
-    get-client:
+    add-client:
+        command: bin/ovpn_addclient
+    show-client:
         command: bin/ovpn_getclient
     status:
         command: bin/ovpn_status

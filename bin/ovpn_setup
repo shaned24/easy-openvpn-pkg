@@ -2,13 +2,12 @@
 
 source $(cd $(dirname "$0"); pwd)/easy-openvpn.profile
 
-#
-# Get OpenVPN server status
-#
 if [ "$DEBUG" == "1" ]; then
-  set -x
+    set -x
 fi
 
 set -e
 
-tail -F $SNAP_DATA/openvpn-status.log
+$SNAP/bin/ovpn_genconfig "$@"
+
+$SNAP/bin/ovpn_initpki

@@ -5,4 +5,3 @@ export EASYRSA_CMD=$EASYRSA/easyrsa
 export EASYRSA_PKI=$OPENVPN/pki
 export EASYRSA_VARS_FILE=$OPENVPN/vars
 export IPTABLES=$SNAP/sbin/iptables
-export DEBUG=1

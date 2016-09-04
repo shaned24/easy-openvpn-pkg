@@ -223,10 +223,9 @@ persist-tun
 push block-outside-dns
 
 proto $OVPN_PROTO
-# Rely on Docker to do port mapping, internally always 1194
 port 1194
 dev $OVPN_DEVICE$OVPN_DEVICEN
-status /tmp/openvpn-status.log
+status $SNAP_DATA/openvpn-status.log
 
 user nobody
 group nogroup

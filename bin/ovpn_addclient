@@ -2,13 +2,14 @@
 
 source $(cd $(dirname "$0"); pwd)/easy-openvpn.profile
 
-#
-# Get OpenVPN server status
-#
 if [ "$DEBUG" == "1" ]; then
-  set -x
+    set -x
 fi
 
 set -e
 
-tail -F $SNAP_DATA/openvpn-status.log
+cn="$1"
+
+$EASYRSA_CMD build-client-full ${cn} nopass
+
+$SNAP/bin/ovpn_getclient ${cn}
