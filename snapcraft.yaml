@@ -1,11 +1,12 @@
 name: easy-openvpn
-version: 0
+version: 0.1
 summary: An easy-to-manage OpenVPN deployment.
 description: |
     OpenVPN snap with management scripts that simplify PKI and client
     management for fast, cheap and disposable VPNs. Based on
     https://github.com/kylemanna/docker-openvpn.
-confinement: devmode
+confinement: strict
+grade: stable
 
 apps:
     easy-openvpn:

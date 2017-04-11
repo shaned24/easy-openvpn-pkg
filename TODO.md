@@ -1,16 +1,18 @@
 # TODO
 
-## tun/tap access for openvpn in strict mode
+## user/group management in strict mode
 ```
-Sep 03 11:11:16 zeugmatic ubuntu-core-launcher[14807]: Sat Sep  3 11:11:16 2016 Socket Buffers: R=[212992->212992] S=[212992->212992]
-Sep 03 11:11:16 zeugmatic ubuntu-core-launcher[14807]: Sat Sep  3 11:11:16 2016 ROUTE_GATEWAY 192.168.88.1/255.255.255.0 IFACE=wlp3s0 HWADDR=3c:a9:f4:56:47:dc
-Sep 03 11:11:16 zeugmatic ubuntu-core-launcher[14807]: Sat Sep  3 11:11:16 2016 ERROR: Cannot open TUN/TAP dev /dev/net/tun: Permission denied (errno=13)
-Sep 03 11:11:16 zeugmatic ubuntu-core-launcher[14807]: Sat Sep  3 11:11:16 2016 Exiting due to fatal error
-Sep 03 11:11:16 zeugmatic kernel: audit: type=1400 audit(1472919076.137:96): apparmor="DENIED" operation="open" profile="snap.easy-openvpn.easy-openvpn" name="/dev/net/tun" pid=14807 comm="openvpn" requested_mask=
-Sep 03 11:11:16 zeugmatic systemd[1]: snap.easy-openvpn.easy-openvpn.service: Main process exited, code=exited, status=1/FAILURE
-Sep 03 11:11:16 zeugmatic systemd[1]: snap.easy-openvpn.easy-openvpn.service: Unit entered failed state.
-Sep 03 11:11:16 zeugmatic systemd[1]: snap.easy-openvpn.easy-openvpn.service: Failed with result 'exit-code'.
+Apr  6 17:38:56 ubuntu snap[122912]: Thu Apr  6 17:38:56 2017 /sbin/ip addr add dev tun0 local 192.168.255.1 peer 192.168.255.2
+Apr  6 17:38:56 ubuntu snap[122912]: Thu Apr  6 17:38:56 2017 /sbin/ip route add 192.168.254.0/24 via 192.168.255.2
+Apr  6 17:38:56 ubuntu snap[122912]: Thu Apr  6 17:38:56 2017 /sbin/ip route add 192.168.255.0/24 via 192.168.255.2
+Apr  6 17:38:56 ubuntu snap[122912]: Thu Apr  6 17:38:56 2017 setgid('nogroup') failed: Operation not permitted (errno=1)
+Apr  6 17:38:56 ubuntu snap[122912]: Thu Apr  6 17:38:56 2017 Exiting due to fatal error
+Apr  6 17:38:56 ubuntu snap[122912]: Thu Apr  6 17:38:56 2017 /sbin/ip route del 192.168.255.0/24
+Apr  6 17:38:56 ubuntu kernel: [64687.436655] audit: type=1400 audit(1491471536.910:1323803): apparmor="DENIED" operation="capable" profile="snap.easy-openvpn.easy-openvpn" pid=122912 comm="openvpn" capability=6  capname="setgid"
+Apr  6 17:38:56 ubuntu snap[122912]: Thu Apr  6 17:38:56 2017 /sbin/ip route del 192.168.254.0/24
+Apr  6 17:38:56 ubuntu snap[122912]: Thu Apr  6 17:38:56 2017 Closing TUN/TAP interface
 ```
+We disable user and group setup for openvpn server for the time being as an open bug can be found on launchpad. [lp#1606510](https://bugs.launchpad.net/snappy/+bug/1606510)
 
 ## generate some clients and test connection is working
 
@@ -21,4 +23,6 @@ Sep 03 11:11:16 zeugmatic systemd[1]: snap.easy-openvpn.easy-openvpn.service: Fa
 # DONE
 - figure out why iptables nat rules aren't allowed with firewall-control
   - need to snap connect :firewall-control, :network-control
+- tun/tap access for openvpn in strict mode
+  - read/write acccess to /dev/net/tun is allowed in snapd with network-control connected
 

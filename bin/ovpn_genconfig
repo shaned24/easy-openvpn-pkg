@@ -226,9 +226,6 @@ proto $OVPN_PROTO
 port 1194
 dev $OVPN_DEVICE$OVPN_DEVICEN
 status $SNAP_DATA/openvpn-status.log
-
-user nobody
-group nogroup
 EOF
 
 [ -n "$OVPN_TLS_CIPHER" ] && echo "tls-cipher $OVPN_TLS_CIPHER" >> "$conf"

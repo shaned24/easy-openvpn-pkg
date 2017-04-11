@@ -6,7 +6,9 @@ spot deployment of secure yet disposable OpenVPN instances.
 
 # Status
 
-Requires --devmode :( See [TODO](TODO.md) for current issues. Consider this
+We disable user and group setup for openvpn server for the time being as an
+open bug can be found on launchpad. [lp#1606510](https://bugs.launchpad.net/snappy/+bug/1606510)
+)] :( See [TODO](TODO.md) for current issues. Consider this
 currently experimental quality.
 
 # Operate
@@ -15,7 +17,7 @@ Commands subject to change as I refine things, but here goes:
 
 ## Install
 
-    sudo snap install easy-openvpn --edge --devmode
+    sudo snap install easy-openvpn
 
 ## Configure
 
