@@ -5,6 +5,9 @@ description: |
     OpenVPN snap with management scripts that simplify PKI and client
     management for fast, cheap and disposable VPNs. Based on
     https://github.com/kylemanna/docker-openvpn.
+    It is an Open Source project distributed under GNU General Public
+    License (GPL). See the project homepage for more details:
+    https://code.launchpad.net/~snappy-hwe-team/snappy-hwe-snaps/+git/easy-openvpn
 confinement: strict
 grade: stable
 
