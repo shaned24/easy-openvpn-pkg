@@ -1,0 +1,16 @@
+summary: Test launch openvpn server.
+
+execute: |
+    . $TESTSLIB/utilities.sh
+    # so enable to setup server in non-interactive mode 
+    sudo snap set easy-openvpn nopasswd=1
+
+    # setup openvpn server
+    sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
+
+    # launch openvpn server
+    sudo service ${SERVICE_UNIT} start
+
+    # wait openvpn server to launch
+    wait_for_systemd_service ${SERVICE_UNIT}
+    sudo journalctl -n 10 --no-pager -u ${SERVICE_UNIT} | grep -Pzq 'Initialization Sequence Completed'

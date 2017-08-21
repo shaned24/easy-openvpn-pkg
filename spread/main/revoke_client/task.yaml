@@ -1,0 +1,22 @@
+summary: Test revoke a client configuration.
+
+execute: |
+    . $TESTSLIB/utilities.sh
+
+    # so enable to setup server in non-interactive mode 
+    sudo snap set easy-openvpn nopasswd=1
+
+    # setup openvpn server
+    sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
+
+    # add a client
+    sudo easy-openvpn.add-client foo > foo.ovpn
+
+    # check if foo exists in the client list
+    sudo easy-openvpn.clients | grep -Pzq "foo.*VALID"
+
+    # revoke the client
+    sudo easy-openvpn.revoke-client foo
+
+    # check if it's revoked
+    sudo easy-openvpn.clients | grep -Pzq "foo.*REVOKED"

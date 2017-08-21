@@ -1,0 +1,160 @@
+diff --git a/bin/easyrsa_vars b/bin/easyrsa_vars
+index e2fb56f..38fde48 100755
+--- a/bin/easyrsa_vars
++++ b/bin/easyrsa_vars
+@@ -1,5 +1,7 @@
+ #!/bin/sh
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ #
+ # Import/export EasyRSA default settings
+ #
+diff --git a/bin/ovpn_copy_server_files b/bin/ovpn_copy_server_files
+index b99f54c..c8b7347 100755
+--- a/bin/ovpn_copy_server_files
++++ b/bin/ovpn_copy_server_files
+@@ -2,6 +2,8 @@
+ ## @licence MIT <http://opensource.org/licenses/MIT>
+ ## @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ set -e
+ 
+ if [ -z "$OPENVPN" ]; then
+diff --git a/bin/ovpn_genconfig b/bin/ovpn_genconfig
+index b965f12..825d514 100755
+--- a/bin/ovpn_genconfig
++++ b/bin/ovpn_genconfig
+@@ -1,5 +1,7 @@
+ #!/bin/bash
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ #
+ # Generate OpenVPN configs
+ #
+@@ -335,9 +337,6 @@ proto $OVPN_PROTO
+ port 1194
+ dev $OVPN_DEVICE$OVPN_DEVICEN
+ status /tmp/openvpn-status.log
+-
+-user nobody
+-group nogroup
+ EOF
+ 
+ if [ "${OVPN_DISABLE_PUSH_BLOCK_DNS}" == "1" ]; then
+diff --git a/bin/ovpn_getclient b/bin/ovpn_getclient
+index 9619e25..820081a 100755
+--- a/bin/ovpn_getclient
++++ b/bin/ovpn_getclient
+@@ -1,5 +1,7 @@
+ #!/bin/bash
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ #
+ # Get an OpenVPN client configuration file
+ #
+diff --git a/bin/ovpn_getclient_all b/bin/ovpn_getclient_all
+index f760495..9c9b958 100755
+--- a/bin/ovpn_getclient_all
++++ b/bin/ovpn_getclient_all
+@@ -2,6 +2,8 @@
+ ## @licence MIT <http://opensource.org/licenses/MIT>
+ ## @author Copyright (C) 2015 Robin Schneider <ypid@riseup.net>
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ if [ -z "$OPENVPN" ]; then
+     export OPENVPN="$PWD"
+ fi
+diff --git a/bin/ovpn_initpki b/bin/ovpn_initpki
+index 14b8ec9..cf3e8ae 100755
+--- a/bin/ovpn_initpki
++++ b/bin/ovpn_initpki
+@@ -1,5 +1,7 @@
+ #!/bin/bash
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ #
+ # Initialize the EasyRSA PKI
+ #
+@@ -13,7 +15,7 @@ set -e
+ source "$OPENVPN/ovpn_env.sh"
+ 
+ # Specify "nopass" as arg[2] to make the CA insecure (not recommended!)
+-nopass=$1
++# nopass=$1
+ 
+ # Provides a sufficient warning before erasing pre-existing files
+ easyrsa init-pki
+diff --git a/bin/ovpn_listclients b/bin/ovpn_listclients
+index 120ab50..2a6b4f4 100755
+--- a/bin/ovpn_listclients
++++ b/bin/ovpn_listclients
+@@ -1,5 +1,7 @@
+ #!/bin/bash
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ if [ -z "$OPENVPN" ]; then
+     export OPENVPN="$PWD"
+ fi
+diff --git a/bin/ovpn_otp_user b/bin/ovpn_otp_user
+index 7af9c1e..c92c2ce 100755
+--- a/bin/ovpn_otp_user
++++ b/bin/ovpn_otp_user
+@@ -1,5 +1,7 @@
+ #!/bin/bash
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ #
+ # Generate OpenVPN users via google authenticator
+ #
+@@ -30,4 +32,4 @@ if [ "$2" == "interactive" ]; then
+ else
+     google-authenticator --time-based --disallow-reuse --force --rate-limit=3 --rate-time=30 --window-size=3 \
+         -l "${1}@${OVPN_CN}" -s /etc/openvpn/otp/${1}.google_authenticator
+-fi
+\ No newline at end of file
++fi
+diff --git a/bin/ovpn_revokeclient b/bin/ovpn_revokeclient
+index c1c175f..b656d19 100755
+--- a/bin/ovpn_revokeclient
++++ b/bin/ovpn_revokeclient
+@@ -1,5 +1,7 @@
+ #!/bin/bash
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ #
+ # Revoke a client certificate
+ #
+diff --git a/bin/ovpn_run b/bin/ovpn_run
+index 9e9f3d5..1354210 100755
+--- a/bin/ovpn_run
++++ b/bin/ovpn_run
+@@ -1,5 +1,7 @@
+ #!/bin/bash
+ 
++source $SNAP_DATA/easy-openvpn.profile
++
+ #
+ # Run the OpenVPN server normally
+ #
+diff --git a/bin/ovpn_status b/bin/ovpn_status
+index 56260fb..2040865 100755
+--- a/bin/ovpn_status
++++ b/bin/ovpn_status
+@@ -1,4 +1,6 @@
+-#!/bin/sh
++#!/bin/bash
++
++source $SNAP_DATA/easy-openvpn.profile
+ 
+ #
+ # Get OpenVPN server status

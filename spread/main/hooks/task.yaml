@@ -1,0 +1,13 @@
+summary: Test configure hooks.
+
+execute: |
+    sudo easy-openvpn.help | grep -Pzq ".*'debug', using default value: '0'"
+    sudo easy-openvpn.help | grep -Pzq "'nopasswd', using default value: '0'"
+
+    # set 'debug' to 1 and check the value in help command
+    sudo snap set easy-openvpn debug=1
+    sudo easy-openvpn.help | grep -Pzq "'debug' current value set to: '1'.*"
+
+    # set 'nopasswd' to 1 and check the value in help command
+    sudo snap set easy-openvpn nopasswd=1
+    sudo easy-openvpn.help | grep -Pzq "'nopasswd' current value set to: '1'.*"

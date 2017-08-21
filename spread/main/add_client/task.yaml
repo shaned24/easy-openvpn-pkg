@@ -1,0 +1,24 @@
+summary: Test add a client configuration.
+
+execute: |
+    . $TESTSLIB/utilities.sh
+
+    # so enable to setup server in non-interactive mode 
+    sudo snap set easy-openvpn nopasswd=1
+
+    # setup openvpn server
+    sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
+
+    # add a client
+    sudo easy-openvpn.add-client foo > foo.ovpn
+
+    # check if foo exists in the client list
+    client_name=$(sudo easy-openvpn.clients | awk -F',' '{if(NR>1)print $1}')
+    [ "${client_name}" = foo ] || exit 1
+
+    # test client config
+    sudo easy-openvpn.show-client foo > tmp.ovpn
+    cmp --silent foo.ovpn tmp.ovpn || exit 1
+
+    # test duplicated client 
+    sudo easy-openvpn.add-client foo > foo.ovpn && exit 1 || exit 0

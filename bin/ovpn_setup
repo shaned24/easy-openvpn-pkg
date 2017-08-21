@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(cd $(dirname "$0"); pwd)/easy-openvpn.profile
+source ${SNAP_DATA}/easy-openvpn.profile
 
 if [ "$DEBUG" == "1" ]; then
     set -x

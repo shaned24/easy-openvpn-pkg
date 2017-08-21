@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $(cd $(dirname "$0"); pwd)/easy-openvpn.profile
+source $SNAP_DATA/easy-openvpn.profile
 
 if [ "$DEBUG" == "1" ]; then
     set -x
@@ -10,6 +10,6 @@ set -e
 
 cn="$1"
 
-$EASYRSA_CMD build-client-full ${cn} nopass
+easyrsa build-client-full ${cn} nopass
 
 $SNAP/bin/ovpn_getclient ${cn}

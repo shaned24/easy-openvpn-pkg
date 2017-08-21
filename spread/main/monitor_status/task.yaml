@@ -1,0 +1,43 @@
+summary: Test monitor check connection status.
+
+execute: |
+    . $TESTSLIB/utilities.sh
+    # so enable to setup server in non-interactive mode 
+    sudo snap set easy-openvpn nopasswd=1
+
+    # setup openvpn server
+    sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
+
+    # launch openvpn server
+    sudo service ${SERVICE_UNIT} start
+
+    # wait openvpn server to launch
+    wait_for_systemd_service ${SERVICE_UNIT}
+    sudo journalctl -n 10 --no-pager -u ${SERVICE_UNIT} | grep -Pzq 'Initialization Sequence Completed'
+
+    # add a client
+    sudo easy-openvpn.add-client foo > foo.ovpn
+
+    # change foo.ovpn owner to avoid dac_override denied in snappy world.
+    sudo chown root.root foo.ovpn
+
+    # run openvpn client as daemon to connect server
+    sudo easy-openvpn.connect-server foo.ovpn --daemon
+
+    # check currrent client connection status
+    # status command is 'tail -F'running under the hood which output appended data as the file grows
+    # on the other hand, there's a delay on openvpn client connections detection even if client is connected.
+    # so we wait a reasonable amount of time and ran status command with no hang up.
+    sleep 90
+    sudo nohup easy-openvpn.status &>status_log &
+
+    sleep 1
+    cat status_log
+    client_info=$(sed '/^Common/,/^ROUTING/{//!b};d;//d' status_log)
+    echo $client_info
+    name=$(echo "${client_info}" | awk -F',' '{print $1}')
+    rx=$(echo "${client_info}" | awk -F',' '{print $3}')
+    tx=$(echo "${client_info}" | awk -F',' '{print $4}')
+    [ "${name}" = "foo" ] || exit 1
+    [ "${rx}" -gt "0" ] || exit 1
+    [ "${tx}" -gt "0" ] || exit 1
