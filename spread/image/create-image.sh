@@ -50,8 +50,8 @@ ubuntu-image \
 kpartx -a $image_name
 sleep 0.5
 
-loop_path=`findfs LABEL=writable`
-tmp_mount=`mktemp -d`
+loop_path=$(findfs LABEL=writable)
+tmp_mount=$(mktemp -d)
 
 mount $loop_path $tmp_mount
 
@@ -60,7 +60,7 @@ mount $loop_path $tmp_mount
 # on that because we  are adding another file in there and that will
 # prevent the initramfs from transitioning any files.
 core_snap=$(find $tmp_mount/system-data/var/lib/snapd/snaps -name "core_*.snap")
-tmp_core=`mktemp -d`
+tmp_core=$(mktemp -d)
 mount $core_snap $tmp_core
 mkdir -p $tmp_mount/system-data/etc/systemd
 cp -rav $tmp_core/etc/systemd/* \

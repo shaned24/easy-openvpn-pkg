@@ -22,6 +22,7 @@ Commands subject to change as I refine things, but here goes:
 
     sudo snap connect easy-openvpn:network-control  :network-control
     sudo snap connect easy-openvpn:firewall-control :firewall-control
+    sudo snap connect easy-openvpn:home :home
 
 ## Configure
 
@@ -94,5 +95,4 @@ In order to execute an individual spread test, please run the following command
 This will run test case under spread/main/installation folder.
 You can specify the `SNAP_CHANNEL` environment variable to install snap from a specific channel for the testing as well.
 
-      $ SNAP_CHANNEL=candidate spread spread/main/update_policy
-
+      $ SNAP_CHANNEL=candidate spread spread/main/installation
