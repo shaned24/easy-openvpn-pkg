@@ -13,4 +13,4 @@ execute: |
 
     # wait openvpn server to launch
     wait_for_systemd_service ${SERVICE_UNIT}
-    sudo journalctl -n 10 --no-pager -u ${SERVICE_UNIT} | grep -Pzq 'Initialization Sequence Completed'
+    sudo journalctl -n 10 --no-pager -u ${SERVICE_UNIT} | MATCH 'Initialization Sequence Completed'

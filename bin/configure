@@ -29,23 +29,26 @@ if ! nopasswd=$(snapctl get nopasswd); then
 fi
 
 # global env variables
-echo "export OPENVPN=$SNAP_DATA/openvpn" > $PROFILE
-echo "export EASYRSA=$SNAP/usr/local/easyrsa">> $PROFILE
-echo "export EASYRSA_PKI=$SNAP_DATA/openvpn/pki">> $PROFILE
-echo "export EASYRSA_VARS_FILE=$SNAP_DATA/openvpn/vars">> $PROFILE
-echo "export PATH=$SNAP/usr/local/easyrsa:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH">> $PROFILE
-
-echo "export DEBUG=$debug" >> $PROFILE
-echo "export NOPASSWD=$nopasswd" >> $PROFILE
+cat << EOF > $PROFILE
+export OPENVPN=$SNAP_DATA/openvpn
+export EASYRSA=$SNAP/usr/local/easyrsa
+export EASYRSA_PKI=$SNAP_DATA/openvpn/pki
+export EASYRSA_VARS_FILE=$SNAP_DATA/openvpn/vars
+export PATH=$SNAP/usr/local/easyrsa:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+export DEBUG=$debug
+export NOPASSWD=$nopasswd
+EOF
 
 # Set default cn and call easy-rsa explicitly in batch mode.
 # It's helpful to execute spread test in non-interactive mode.
 if [ "$nopasswd" = "1" ]; then
     # Ugly, set env var and pass it to ovpn.
     # export nopass=1 makes more sense but this is the least code changes.
-    echo "export nopass=nopass" >> $PROFILE
-    echo "export EASYRSA_BATCH=1" >> $PROFILE
-    echo "export EASYRSA_REQ_CN=SNAPPY_SPREAD_TEST" >> $PROFILE
+    cat << EOF >> $PROFILE
+export nopass=nopass
+export EASYRSA_BATCH=1
+export EASYRSA_REQ_CN=SNAPPY_SPREAD_TEST
+EOF
 fi
 
 chmod 600 $PROFILE

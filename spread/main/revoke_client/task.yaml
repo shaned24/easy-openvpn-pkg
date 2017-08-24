@@ -13,10 +13,10 @@ execute: |
     sudo easy-openvpn.add-client foo > foo.ovpn
 
     # check if foo exists in the client list
-    sudo easy-openvpn.clients | grep -Pzq "foo.*VALID"
+    sudo easy-openvpn.clients | MATCH "foo.*VALID"
 
     # revoke the client
     sudo easy-openvpn.revoke-client foo
 
     # check if it's revoked
-    sudo easy-openvpn.clients | grep -Pzq "foo.*REVOKED"
+    sudo easy-openvpn.clients | MATCH "foo.*REVOKED"

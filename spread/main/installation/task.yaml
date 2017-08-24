@@ -1,8 +1,8 @@
 summary: Test all necessary plugs/slots are connected upon installation
 
 execute: |
-    snap interfaces | grep -Pzq ":network +[a-z,-]*easy-openvpn"
-    snap interfaces | grep -Pzq ":network-bind +[a-z,-]*easy-openvpn"
-    snap interfaces | grep -Pzq ":network-control +[a-z,-]*easy-openvpn"
-    snap interfaces | grep -Pzq ":firewall-control +[a-z,-]*easy-openvpn"
-    snap interfaces | grep -Pzq ":home +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":network +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":network-bind +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":network-control +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":firewall-control +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":home +[a-z,-]*easy-openvpn"

@@ -7,7 +7,7 @@ execute: |
     # so that we can execute spread test in non-interactive mode 
     # without user attention on password input for private key generation.
     sudo snap set easy-openvpn nopasswd=1
-    sudo easy-openvpn.help | grep -Pzq "'nopasswd' current value set to: '1'.*"
+    sudo easy-openvpn.help | MATCH "'nopasswd' current value set to: '1'.*"
 
     # setup openvpn server
     sudo easy-openvpn.setup -u "udp://${SERVER_IP}"

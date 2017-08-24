@@ -8,7 +8,7 @@ spot deployment of secure yet disposable OpenVPN instances.
 
 We disable user and group setup for OpenVPN server for the time being as an
 open bug can be found on Launchpad. [lp#1606510](https://bugs.launchpad.net/snappy/+bug/1606510).
-Adding [user and group management](https://forum.snapcraft.io/t/multiple-users-and-groups-in-snaps/1461/2) support is on the roadmap of snpad. We'll support it accordingly when the feature lands. See [TODO](TODO.md) for current issues.
+Adding [user and group management](https://forum.snapcraft.io/t/multiple-users-and-groups-in-snaps/1461/2) support is on the roadmap of snapd. We'll support it accordingly when the feature lands. See [TODO](TODO.md) for current issues.
 
 # Operate
 
@@ -33,7 +33,7 @@ used to create clients later.
 
 ## Start
 
-	$ sudo service snap.easy-openvpn.easy-openvpn start
+    $ sudo service snap.easy-openvpn.easy-openvpn start
 
 Beginning with snapd 2.26.9, snapd can currently take connections of interfaces dynamically
 and update the mount namespaces of the snap in-place without any processes
@@ -45,7 +45,7 @@ we could reload the snap manually with the following commands:
 
 ## Use
 
-	$ sudo easy-openvpn.add-client foo > foo.ovpn
+    $ sudo easy-openvpn.add-client foo > foo.ovpn
 
 Add a client and enter the same passphrase you set during setup above. Use the
 .ovpn file to connect to your VPN server.
@@ -54,15 +54,15 @@ Add a client and enter the same passphrase you set during setup above. Use the
 
 ### List clients
 
-	$ sudo easy-openvpn.clients
+    $ sudo easy-openvpn.clients
 
 ### Show client ovpn
 
-	$ sudo easy-openvpn.show-client foo
+    $ sudo easy-openvpn.show-client foo
 
 ### Tail the log
 
-	$ sudo easy-openvpn.status
+    $ sudo easy-openvpn.status
 
 ## Testing
 
@@ -70,29 +70,30 @@ We rely on spread (https://github.com/snapcore/spread) to run full-system test o
 
 Firstly, install ubuntu-image tool since we need to create a custom Ubuntu Core image during test preparation.
 
-      $ sudo snap install --beta --classic ubuntu-image
+    $ sudo snap install --beta --classic ubuntu-image
 
 Secondly, install qemu-kvm package since we use it as the backend to run the spread test.
 
-      $ sudo apt install qemu-kvm
+    $ sudo apt install qemu-kvm
 
 Meanwhile, you need a classic-mode supported spread binary to launch kvm from its context. You can either build spread from this [branch](https://github.com/rmescandon/spread/tree/snap-as-classic) or download the spread snap package [here](http://people.canonical.com/~gary-wzl77/spread_2017.05.24_amd64.snap).
 
-      $ sudo snap install --classic --dangerous spread_2017.05.24_amd64.snap
+    $ sudo snap install --classic --dangerous spread_2017.05.24_amd64.snap
 
 You may build the easy-openvpn snap locally in advance and then execute the spread tests with the following commands:
-      $ snapcraft
-      $ ./run-tests.sh
+
+    $ snapcraft
+    $ ./run-tests.sh
 
 When doing a local build, you can also specify --test-from-channel to fetch the snap from the specific channel of the store. The snap from `candidate` channel is used by default as test target if `--channel` option is not specified.
 
-      $ ./run-tests.sh --test-from-channel --channel=candidate
+    $ ./run-tests.sh --test-from-channel --channel=candidate
 
 In order to execute an individual spread test, please run the following command:
 
-      $ spread spread/main/installation
+    $ spread spread/main/installation
 
 This will run the test case under spread/main/installation folder.
 You can specify the `SNAP_CHANNEL` environment variable to install a snap from a specific channel for the testing as well.
 
-      $ SNAP_CHANNEL=candidate spread spread/main/installation
+    $ SNAP_CHANNEL=candidate spread spread/main/installation

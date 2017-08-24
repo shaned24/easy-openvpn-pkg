@@ -18,7 +18,7 @@ execute: |
 
     # test client config
     sudo easy-openvpn.show-client foo > tmp.ovpn
-    cmp --silent foo.ovpn tmp.ovpn || exit 1
+    ! cmp --silent foo.ovpn tmp.ovpn
 
     # test duplicated client 
     sudo easy-openvpn.add-client foo > foo.ovpn && exit 1 || exit 0
