@@ -5,8 +5,8 @@ description: |
     OpenVPN snap with management scripts that simplify PKI and client
     management for fast, cheap and disposable VPNs. Based on
     https://github.com/kylemanna/docker-openvpn.
-    It is an open source project distributed under GNU General Public
-    License (GPL). See the project homepage for more details:
+    It is an open source project distributed under MIT License.
+    See the project homepage for more details:
     https://code.launchpad.net/~snappy-hwe-team/snappy-hwe-snaps/+git/easy-openvpn
 confinement: strict
 grade: stable
@@ -48,8 +48,10 @@ parts:
             - iptables
     openvpn-utils:
         plugin: dump
-        source: https://github.com/kylemanna/docker-openvpn.git
-        prepare:  git apply $SNAPCRAFT_STAGE/snappy-profile-and-disable-user-group.patch
+        source: https://git.launchpad.net/~snappy-hwe-team/snappy-hwe-snaps/+git/easy-openvpn
+        prepare: git apply $SNAPCRAFT_STAGE/0001-Enable-docker-openvpn-working-in-snappy-world.patch
+        source-type: git
+        source-branch: docker-openvpn/latest
         filesets:
             exclude:
               - -docs

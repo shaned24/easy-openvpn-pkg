@@ -28,7 +28,6 @@ if ! nopasswd=$(snapctl get nopasswd); then
     exit 1
 fi
 
-# global env variables
 cat << EOF > $PROFILE
 export OPENVPN=$SNAP_DATA/openvpn
 export EASYRSA=$SNAP/usr/local/easyrsa
@@ -39,7 +38,7 @@ export DEBUG=$debug
 export NOPASSWD=$nopasswd
 EOF
 
-# Set default cn and call easy-rsa explicitly in batch mode.
+# Set default domain common name and call easy-rsa explicitly in batch mode.
 # It's helpful to execute spread test in non-interactive mode.
 if [ "$nopasswd" = "1" ]; then
     # Ugly, set env var and pass it to ovpn.

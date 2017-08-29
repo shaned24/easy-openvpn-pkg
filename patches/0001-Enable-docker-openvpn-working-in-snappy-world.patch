@@ -1,3 +1,26 @@
+From 5ca0a46e00b5fecff135b3b5d024d721c94a79fd Mon Sep 17 00:00:00 2001
+From: gary-wzl77 <gary.wang@canonical.com>
+Date: Tue, 29 Aug 2017 16:43:20 +0800
+Subject: [PATCH] Enable docker-openvpn working in snappy world.
+
+*. Read global env variables.
+*. Disable user and group settings in config file.
+
+Signed-off-by: gary-wzl77 <gary.wang@canonical.com>
+---
+ bin/easyrsa_vars           | 2 ++
+ bin/ovpn_copy_server_files | 2 ++
+ bin/ovpn_genconfig         | 5 ++---
+ bin/ovpn_getclient         | 2 ++
+ bin/ovpn_getclient_all     | 2 ++
+ bin/ovpn_initpki           | 4 +++-
+ bin/ovpn_listclients       | 2 ++
+ bin/ovpn_otp_user          | 2 ++
+ bin/ovpn_revokeclient      | 2 ++
+ bin/ovpn_run               | 2 ++
+ bin/ovpn_status            | 4 +++-
+ 11 files changed, 24 insertions(+), 5 deletions(-)
+
 diff --git a/bin/easyrsa_vars b/bin/easyrsa_vars
 index e2fb56f..38fde48 100755
 --- a/bin/easyrsa_vars
@@ -104,7 +127,7 @@ index 120ab50..2a6b4f4 100755
      export OPENVPN="$PWD"
  fi
 diff --git a/bin/ovpn_otp_user b/bin/ovpn_otp_user
-index 7af9c1e..c92c2ce 100755
+index 7af9c1e..d81887e 100755
 --- a/bin/ovpn_otp_user
 +++ b/bin/ovpn_otp_user
 @@ -1,5 +1,7 @@
@@ -115,13 +138,6 @@ index 7af9c1e..c92c2ce 100755
  #
  # Generate OpenVPN users via google authenticator
  #
-@@ -30,4 +32,4 @@ if [ "$2" == "interactive" ]; then
- else
-     google-authenticator --time-based --disallow-reuse --force --rate-limit=3 --rate-time=30 --window-size=3 \
-         -l "${1}@${OVPN_CN}" -s /etc/openvpn/otp/${1}.google_authenticator
--fi
-\ No newline at end of file
-+fi
 diff --git a/bin/ovpn_revokeclient b/bin/ovpn_revokeclient
 index c1c175f..b656d19 100755
 --- a/bin/ovpn_revokeclient
@@ -158,3 +174,6 @@ index 56260fb..2040865 100755
  
  #
  # Get OpenVPN server status
+-- 
+2.7.4
+

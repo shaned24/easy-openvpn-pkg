@@ -27,7 +27,8 @@ DESC_DEBUG="Enable debug mode in OpenVPN server if it's set to 1."
 DESC_NOPASSWD="Enable generating private key without a passphrase during server setup if it's set to 1"
 
 cat << 'EOF'
-OpenVPN snap with management scripts that simplify PKI and client management for fast, cheap and disposable VPNs.
+OpenVPN snap with management scripts that simplify PKI
+and client management for fast, cheap and disposable VPNs.
 It's based on https://github.com/kylemanna/docker-openvpn."
 $ snap set easy-openvpn <key name>='<key value>'"
 EOF
