@@ -1,0 +1,51 @@
+summary: Test revoke a client after connection.
+
+execute: |
+    . $TESTSLIB/utilities.sh
+    # so enable to setup server in non-interactive mode 
+    sudo snap set easy-openvpn nopasswd=1
+
+    # setup openvpn server
+    sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
+
+    # launch openvpn server
+    sudo service ${SERVICE_UNIT} start
+
+    # wait openvpn server to launch
+    wait_for_systemd_service ${SERVICE_UNIT}
+    sudo journalctl -n 10 --no-pager -u ${SERVICE_UNIT} | MATCH 'Initialization Sequence Completed'
+
+    # add a client
+    sudo easy-openvpn.add-client foo > foo.ovpn
+
+    # check if foo exists in the client list
+    sudo easy-openvpn.clients | MATCH "foo.*VALID"
+
+    # change foo.ovpn owner to avoid dac_override denied in snappy world.
+    sudo chown root.root foo.ovpn
+
+    # run openvpn client as daemon to connect server
+    sudo easy-openvpn.connect-server foo.ovpn --daemon
+
+    # wait bit for client to initialize
+    sleep 10
+    sudo tail -n 10 /var/log/syslog | MATCH 'localhost openvpn.* Initialization Sequence Completed'
+        
+    # revoke the client
+    sudo easy-openvpn.revoke-client foo
+
+    # check if it's revoked
+    sudo easy-openvpn.clients | MATCH "foo.*REVOKED"
+
+    # kill openvpn client 
+    pid=$(ps aux | grep -P '[o]penvpn.* foo.ovpn.*' | awk '{print $2}')
+    sudo kill -9 $pid
+
+    # The OpenVPN server will read this change every time a client connects 
+    # (no need to restart server) and deny clients access using revoked certificates.
+    # so we try to connect server again.
+    sudo easy-openvpn.connect-server foo.ovpn --daemon
+    
+    sleep 10
+    sudo tail -n 10 /var/log/syslog | MATCH 'TLS Error: TLS handshake failed'
+    sudo tail -n 10 /var/log/syslog | MATCH 'CRL CHECK FAILED: CN=foo.*is REVOKED'

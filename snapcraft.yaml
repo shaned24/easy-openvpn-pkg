@@ -1,10 +1,13 @@
 name: easy-openvpn
-version: 2.3.10-1
+version: 2.3.10-2
 summary: An easy-to-manage OpenVPN deployment.
 description: |
     OpenVPN snap with management scripts that simplify PKI and client
     management for fast, cheap and disposable VPNs. Based on
     https://github.com/kylemanna/docker-openvpn.
+    It is an open source project distributed under MIT License.
+    See the project homepage for more details:
+    https://code.launchpad.net/~snappy-hwe-team/snappy-hwe-snaps/+git/easy-openvpn
 confinement: strict
 grade: stable
 
@@ -23,18 +26,56 @@ apps:
         command: bin/ovpn_listclients
     add-client:
         command: bin/ovpn_addclient
+    revoke-client:
+        command: bin/ovpn_revokeclient
     show-client:
         command: bin/ovpn_getclient
+    connect-server:
+        command: openvpn --config
+        plugs:
+            - home
+            - network-control
     status:
         command: bin/ovpn_status
+    help:
+        command: bin/help
 
 parts:
     packages:
         plugin: nil
         stage-packages:
             - openvpn
-            - openssl
             - iptables
+    openvpn-utils:
+        plugin: dump
+        source: https://git.launchpad.net/~snappy-hwe-team/snappy-hwe-snaps/+git/easy-openvpn
+        prepare: git apply $SNAPCRAFT_STAGE/0001-Enable-docker-openvpn-working-in-snappy-world.patch
+        source-type: git
+        source-branch: docker-openvpn/latest
+        filesets:
+            exclude:
+              - -docs
+              - -init
+              - -otp
+              - -test
+              - -.gitignore
+              - -.travis.yml
+              - -CONTRIBUTING.md
+              - -Dockerfile
+              - -Dockerfile.aarch64
+              - -README.md
+              - -alpine
+        stage:
+            - $exclude
+        prime:
+            - $exclude
+        after:
+            - patch
+    patch:
+        source: patches
+        plugin: dump
+        prime:
+            - -*
     easyrsa:
         plugin: dump
         source: https://github.com/OpenVPN/easy-rsa/releases/download/3.0.1/EasyRSA-3.0.1.tgz
@@ -42,10 +83,17 @@ parts:
             easyrsa: usr/local/easyrsa/easyrsa
             openssl-1.0.cnf: usr/local/easyrsa/openssl-1.0.cnf
             x509-types: usr/local/easyrsa/x509-types
-        snap:
+        prime:
             - usr/local/easyrsa
     scripts:
         plugin: dump
         source: .
-        snap:
-            - bin/*
+        organize:
+            "bin/configure": meta/hooks/configure
+        prime:
+           - -patches
+           - -README.md
+           - -spread.yaml
+           - -run-tests.sh
+           - -spread
+

@@ -1,0 +1,18 @@
+summary: Test setup openvpn server.
+
+execute: |
+    . $TESTSLIB/utilities.sh
+
+    # set 'nopasswd' to 1 and check the value in help command
+    # so that we can execute spread test in non-interactive mode 
+    # without user attention on password input for private key generation.
+    sudo snap set easy-openvpn nopasswd=1
+    sudo easy-openvpn.help | MATCH "'nopasswd' current value set to: '1'.*"
+
+    # setup openvpn server
+    sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
+
+    # to check if ca keypairs are generated successfully
+    SNAP_DATA="/var/snap/easy-openvpn/current"
+    [ -f "${SNAP_DATA}/openvpn/pki/private/${SERVER_IP}.key" ] || exit 1
+    [ -f "${SNAP_DATA}/openvpn/pki/private/ca.key" ] || exit 1

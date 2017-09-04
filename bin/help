@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Copyright (C) 2017 Canonical Ltd
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 3 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+source ${SNAP_DATA}/easy-openvpn.profile
+
+DEFAULT_DEBUG=0
+DEFAULT_NOPASSWD=0
+
+SNAPPY_DEBUG=debug
+SNAPPY_NOPASSWD=nopasswd
+
+KEYS=("DEBUG" "NOPASSWD")
+DESC_DEBUG="Enable debug mode in OpenVPN server if it's set to 1."
+DESC_NOPASSWD="Enable generating private key without a passphrase during server setup if it's set to 1"
+
+cat << 'EOF'
+OpenVPN snap with management scripts that simplify PKI
+and client management for fast, cheap and disposable VPNs.
+It's based on https://github.com/kylemanna/docker-openvpn."
+$ snap set easy-openvpn <key name>='<key value>'"
+EOF
+
+for key in "${KEYS[@]}"
+do
+    default_value="DEFAULT_$key"
+    description="DESC_$key"
+    snappy_key="SNAPPY_$key"
+    echo -e "\t${!snappy_key}:   ${!description}"
+    if [ "x" == "x${!key}" ]; then
+        echo -e "\t\tNo value set for: '${!snappy_key}', using default value: '${!default_value}'"
+    else
+        echo -e "\t\t'${!snappy_key}' current value set to: '${!key}', (default value: '${!default_value}')"
+    fi
+done
