@@ -26,6 +26,18 @@ Commands subject to change as I refine things, but here goes:
 
 ## Configure
 
+Enable IP forwarding firstly. Note: On ubuntu core, IP forwarding is disabled by default.
+
+    $ sudo sysctl -w net.ipv4.ip_forward=1
+
+If internet connection is over ethernet, you can skip natdevice setup since default natdevice value is 'eth0'.
+While a wireless connection is established, you need to set it to 'wlan0' accordingly.
+Note: This fits the scenario where people usually setup a wireless connection on ubuntu core at the first boot.
+
+    $ sudo snap set easy-openvpn natdevice=wlan0
+
+Setup an openvpn server with host machine IP address
+
     $ sudo easy-openvpn.setup -u udp://<public ip>
 
 You'll be prompted to set a passphrase for your CA. This passphrase will be

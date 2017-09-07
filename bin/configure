@@ -28,6 +28,11 @@ if ! nopasswd=$(snapctl get nopasswd); then
     exit 1
 fi
 
+if ! natdevice=$(snapctl get natdevice); then
+    echo "Failed to get natdevice option."
+    exit 1
+fi
+
 cat << EOF > $PROFILE
 export OPENVPN=$SNAP_DATA/openvpn
 export EASYRSA=$SNAP/usr/local/easyrsa
@@ -36,6 +41,7 @@ export EASYRSA_VARS_FILE=$SNAP_DATA/openvpn/vars
 export PATH=$SNAP/usr/local/easyrsa:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
 export DEBUG=$debug
 export NOPASSWD=$nopasswd
+export OVPN_NATDEVICE=$natdevice
 EOF
 
 # Set default domain common name and call easy-rsa explicitly in batch mode.
