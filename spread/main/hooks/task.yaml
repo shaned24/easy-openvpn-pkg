@@ -11,3 +11,7 @@ execute: |
     # set 'nopasswd' to 1 and check the value in help command
     sudo snap set easy-openvpn nopasswd=1
     sudo easy-openvpn.help | MATCH "'nopasswd' current value set to: '1'.*"
+
+    # set 'natdevice' to 'wlan0' and check the value in help command
+    sudo snap set easy-openvpn natdevice=wlan0
+    sudo easy-openvpn.help | MATCH "'natdevice' current value set to: 'wlan0'.*"

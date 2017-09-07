@@ -1,9 +1,13 @@
-summary: Test monitor check connection status.
+summary: Test change natdevice to 'wlan0'.
 
 execute: |
     . $TESTSLIB/utilities.sh
     # so enable to setup server in non-interactive mode 
     sudo snap set easy-openvpn nopasswd=1
+
+    # change natdevice to 'eth0'.
+    # It should be set to 'wlan0' while connecting to a wireless network
+    sudo snap set easy-openvpn natdevice='eth0'
 
     # setup openvpn server
     sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
@@ -25,9 +29,6 @@ execute: |
     sudo easy-openvpn.connect-server foo.ovpn --daemon
 
     # check currrent client connection status
-    # status command is 'tail -F'running under the hood which output appended data as the file grows
-    # on the other hand, there's a delay on openvpn client connections detection even if client is connected.
-    # so we wait a reasonable amount of time and ran status command with no hang up.
     sleep 90
     sudo nohup easy-openvpn.status &>status_log &
 

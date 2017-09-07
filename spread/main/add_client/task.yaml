@@ -14,11 +14,11 @@ execute: |
 
     # check if foo exists in the client list
     client_name=$(sudo easy-openvpn.clients | awk -F',' '{if(NR>1)print $1}')
-    [ "${client_name}" = foo ] || exit 1
+    test "${client_name}" = "foo"
 
     # test client config
     sudo easy-openvpn.show-client foo > tmp.ovpn
     ! cmp --silent foo.ovpn tmp.ovpn
 
     # test duplicated client 
-    sudo easy-openvpn.add-client foo > foo.ovpn && exit 1 || exit 0
+    ! sudo easy-openvpn.add-client foo > foo.ovpn
