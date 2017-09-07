@@ -14,5 +14,5 @@ execute: |
 
     # to check if ca keypairs are generated successfully
     SNAP_DATA="/var/snap/easy-openvpn/current"
-    [ -f "${SNAP_DATA}/openvpn/pki/private/${SERVER_IP}.key" ] || exit 1
-    [ -f "${SNAP_DATA}/openvpn/pki/private/ca.key" ] || exit 1
+    test -f "${SNAP_DATA}/openvpn/pki/private/${SERVER_IP}.key"
+    test -f "${SNAP_DATA}/openvpn/pki/private/ca.key"

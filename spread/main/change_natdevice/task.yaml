@@ -37,6 +37,6 @@ execute: |
     name=$(echo "${client_info}" | awk -F',' '{print $1}')
     rx=$(echo "${client_info}" | awk -F',' '{print $3}')
     tx=$(echo "${client_info}" | awk -F',' '{print $4}')
-    [ "${name}" = "foo" ] || exit 1
-    [ "${rx}" -gt "0" ] || exit 1
-    [ "${tx}" -gt "0" ] || exit 1
+    test "${name}" = "foo"
+    test "${rx}" -gt "0"
+    test "${tx}" -gt "0"
