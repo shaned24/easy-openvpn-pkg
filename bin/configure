@@ -33,6 +33,11 @@ if ! natdevice=$(snapctl get natdevice); then
     exit 1
 fi
 
+if ! subnet=$(snapctl get server-subnet); then
+    echo "Failed to get subnet option."
+    exit 1
+fi
+
 cat << EOF > $PROFILE
 export OPENVPN=$SNAP_DATA/openvpn
 export EASYRSA=$SNAP/usr/local/easyrsa
@@ -42,6 +47,7 @@ export PATH=$SNAP/usr/local/easyrsa:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNA
 export DEBUG=$debug
 export NOPASSWD=$nopasswd
 export OVPN_NATDEVICE=$natdevice
+export OVPN_SERVER=$subnet
 EOF
 
 # Set default domain common name and call easy-rsa explicitly in batch mode.
