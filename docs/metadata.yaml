@@ -1,0 +1,36 @@
+site_title: easy-openvpn documentation
+site_logo_url: https://assets.ubuntu.com/v1/c5cb0f8e-picto-ubuntu.svg
+navigation:
+  - title: Introduction
+    children:
+      - title: About easy-openvpn
+        location: index.md
+  - title: Install & Configure
+    children:
+      - title: Install easy-openvpn
+        location: installation.md
+      - title: Basic openvpn server and client Setup
+        location: configuration.md
+  - title: Reference
+    children:
+      - title: Commands
+        location: reference/commands.md
+      - title: Configuration
+        location: reference/configuration.md
+      - title: Snap Configuration
+        location: reference/snap-configuration.md
+      - title: API Documentation
+        location: reference/rest-api.md
+        children:
+          - title: /v1/configuration
+            location: reference/rest-api/v1-configuration.md
+          - title: /v1/status
+            location: reference/rest-api/v1-status.md
+  - title: Troubleshoot
+    children:
+      - title: FAQ
+        location: faq.md
+  - title: Release notes
+    location: release-notes.md
+  - title: Report a Bug
+    location: report-bug.md
