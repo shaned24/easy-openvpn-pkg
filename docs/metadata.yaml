@@ -15,17 +15,8 @@ navigation:
     children:
       - title: Commands
         location: reference/commands.md
-      - title: Configuration
-        location: reference/configuration.md
       - title: Snap Configuration
-        location: reference/snap-configuration.md
-      - title: API Documentation
-        location: reference/rest-api.md
-        children:
-          - title: /v1/configuration
-            location: reference/rest-api/v1-configuration.md
-          - title: /v1/status
-            location: reference/rest-api/v1-status.md
+        location: reference/snap-configuration/snap-configuration.md
   - title: Troubleshoot
     children:
       - title: FAQ

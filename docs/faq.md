@@ -9,8 +9,8 @@ This section mainly covers frequently asked questions related to configuring and
 
 ## `Error opening configuration file: foo.ovpn` When running connect-server to connect openvpn server?
 
-Problem possibly caused by lacking permission. When you encounter this problem, 
-1. Please first check if you run the easy-openvpn.connect-server with sudo.
+Problem possibly caused by lacking permission. When you encounter this problem,    
+1. Please first check if you run the easy-openvpn.connect-server with sudo.  
 2. As elaborated in [Installation / Launch openvpn client](installation.md), you need to connect home plug
    if you put the ovpn file to your HOME directory. Moreover, you need to change the owner of ovpn file to 
    root, otherwise you probably encounter the [dac_override denied](https://forum.snapcraft.io/t/docker-load-fails-with-permission-denied/1227/3)
