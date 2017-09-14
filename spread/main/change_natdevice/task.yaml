@@ -3,11 +3,11 @@ summary: Test change natdevice to 'wlan0'.
 execute: |
     . $TESTSLIB/utilities.sh
     # so enable to setup server in non-interactive mode 
-    sudo snap set easy-openvpn nopasswd=1
+    sudo snap set easy-openvpn server-setup.nopasswd=1
 
     # change natdevice to 'eth0'.
     # It should be set to 'wlan0' while connecting to a wireless network
-    sudo snap set easy-openvpn natdevice='eth0'
+    sudo snap set easy-openvpn server-setup.natdevice='eth0'
 
     # setup openvpn server
     sudo easy-openvpn.setup -u "udp://${SERVER_IP}"

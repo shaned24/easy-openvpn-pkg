@@ -23,12 +23,12 @@ if ! debug=$(snapctl get debug); then
     exit 1
 fi
 
-if ! nopasswd=$(snapctl get nopasswd); then
+if ! nopasswd=$(snapctl get server-setup.nopasswd); then
     echo "Failed to get nopasswd option."
     exit 1
 fi
 
-if ! natdevice=$(snapctl get natdevice); then
+if ! natdevice=$(snapctl get server-setup.natdevice); then
     echo "Failed to get natdevice option."
     exit 1
 fi

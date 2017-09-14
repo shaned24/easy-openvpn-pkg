@@ -34,7 +34,7 @@ If internet connection is over ethernet, you can skip natdevice setup since defa
 While a wireless connection is established, you need to set it to 'wlan0' accordingly.
 Note: This fits the scenario where people usually setup a wireless connection on ubuntu core at the first boot.
 
-    $ sudo snap set easy-openvpn natdevice=wlan0
+    $ sudo snap set easy-openvpn server-setup.natdevice=wlan0
 
 Setup an openvpn server with host machine IP address
 
@@ -52,8 +52,8 @@ and update the mount namespaces of the snap in-place without any processes
 restarting or any other change after connecting interfaces above.  But to be safe,
 we could reload the snap manually with the following commands:
 
-    $ sudo disable easy-openvpn
-    $ sudo enable easy-openvpn
+    $ sudo snap disable easy-openvpn
+    $ sudo snap enable easy-openvpn
 
 ## Use
 

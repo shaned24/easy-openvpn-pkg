@@ -21,8 +21,8 @@ DEFAULT_NOPASSWD=0
 DEFAULT_OVPN_NATDEVICE=eth0
 
 SNAPPY_DEBUG=debug
-SNAPPY_NOPASSWD=nopasswd
-SNAPPY_OVPN_NATDEVICE=natdevice
+SNAPPY_NOPASSWD=server-setup.nopasswd
+SNAPPY_OVPN_NATDEVICE=server-setup.natdevice
 
 KEYS=("DEBUG" "NOPASSWD" "OVPN_NATDEVICE")
 DESC_DEBUG="Enable debug mode in OpenVPN server if it's set to 1."
