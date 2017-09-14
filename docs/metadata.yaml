@@ -5,12 +5,14 @@ navigation:
     children:
       - title: About easy-openvpn
         location: index.md
-  - title: Install & Configure
+  - title: Install & Setup
     children:
       - title: Install easy-openvpn
         location: installation.md
-      - title: Basic openvpn server and client Setup
-        location: configuration.md
+      - title: OpenVPN server Setup
+        location: openvpn-server-setup.md
+      - title: OpenVPN client Setup
+        location: openvpn-client-setup.md
   - title: Reference
     children:
       - title: Commands

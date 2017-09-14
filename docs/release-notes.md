@@ -17,4 +17,4 @@ Ubuntu snap store.
 
 ## 2.3.10-1
 
- * Disable user and group setup for openvpn server to overcome strict confinement issue.
+ * Disable user and group setup for OpenVPN server to overcome strict confinement issue.

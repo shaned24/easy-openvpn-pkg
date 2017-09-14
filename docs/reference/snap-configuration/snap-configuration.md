@@ -8,6 +8,7 @@ table_of_contents: False
 Besides the configuration offered by upstream, the easy-openvpn snap provides a 
 simple set of snap configuration items which can be changed through the *snap set* system
 command.  
+
 The available configuration items are documented in the following sections.
 
 ## debug
@@ -29,7 +30,7 @@ $ snap set easy-openvpn debug=1
 
 The *nopasswd* option allows to generate private key without a passphrase during server setup.
 Normally, people should always generate private key with a passphrase for security reasons.
-This value is only used to setup an openvpn server in non-interactive mode for running spread test.
+This value is only used to setup an OpenVPN server in non-interactive mode for running spread test.
 
 Possible values are:
 
@@ -45,7 +46,7 @@ $ snap set easy-openvpn nopasswd=1
 ## natdevice
 
 
-The *natdevice* option allows to specify the active network interafce for traffic rerouting on openvpn server.
+The *natdevice* option allows to specify the active network interafce for traffic rerouting on OpenVPN server.
 If internet connection is over ethernet, you can skip natdevice setup since default natdevice value is 'eth0'.
 While a wireless connection is established, you need to set it to 'wlan0' accordingly.
 Note: This fits the scenario where people usually setup a wireless connection on ubuntu core at the first boot.

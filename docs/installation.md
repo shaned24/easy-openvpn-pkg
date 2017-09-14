@@ -26,7 +26,7 @@ Slot                       Plug
 ```
 
 You probably need to connect home plug manually if you copy the client 
-ovpn file to home directory and connect client to server with it.
+ovpn file to your home directory and connect client to server with it.
 
 ```
 $ snap connect easy-openvpn:home :home
