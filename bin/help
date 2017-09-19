@@ -16,17 +16,17 @@
 
 source ${SNAP_DATA}/easy-openvpn.profile
 
-DEFAULT_DEBUG=0
-DEFAULT_NOPASSWD=0
+DEFAULT_DEBUG=false
+DEFAULT_NOPASSWD=false
 DEFAULT_OVPN_NATDEVICE=eth0
 
 SNAPPY_DEBUG=debug
-SNAPPY_NOPASSWD=server-setup.nopasswd
-SNAPPY_OVPN_NATDEVICE=server-setup.natdevice
+SNAPPY_NOPASSWD=server.no-password
+SNAPPY_OVPN_NATDEVICE=server.natdevice
 
 KEYS=("DEBUG" "NOPASSWD" "OVPN_NATDEVICE")
-DESC_DEBUG="Enable debug mode in OpenVPN server if it's set to 1."
-DESC_NOPASSWD="Enable generating private key without a passphrase during server setup if it's set to 1"
+DESC_DEBUG="Enable debug mode in OpenVPN server if it's set to false."
+DESC_NOPASSWD="Enable generating private key without a passphrase during server setup if it's set to false"
 DESC_OVPN_NATDEVICE="Support to specify nat device, typically it could be eth0(default) or wlan0 if you
                      connect to server over wireless connection"
 

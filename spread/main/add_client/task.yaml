@@ -4,7 +4,7 @@ execute: |
     . $TESTSLIB/utilities.sh
 
     # so enable to setup server in non-interactive mode 
-    sudo snap set easy-openvpn server-setup.nopasswd=1
+    sudo snap set easy-openvpn server.no-password='true'
 
     # setup openvpn server
     sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
