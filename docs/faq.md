@@ -5,23 +5,22 @@ table_of_contents: True
 
 # FAQ
 
-This section mainly covers frequently asked questions related to configuring and using easy-openvpn snap
+This section covers frequently asked questions related to configuring and using the easy-openvpn snap.
 
-## Why do I get the error `Error opening configuration file: foo.ovpn` When running connect-server to connect OpenVPN server?
+## Why do I get the error `Error opening configuration file: foo.ovpn` when running connect-server to connect to the OpenVPN server?
 
-Problem possibly caused by lacking permission. When you encounter this problem:    
-1. Please first check if you run the easy-openvpn.connect-server with sudo.  
-2. As elaborated in [OpenVPN Client Setup](openvpn-client-setup.md), you need to connect home plug
-   if you put the ovpn file to your HOME directory. Moreover, you need to change the owner of ovpn file to 
-   root, otherwise you probably encounter the [dac_override denied](https://forum.snapcraft.io/t/docker-load-fails-with-permission-denied/1227/3)
-   in snappy world.
+The problem is possible caused by insufficient permissions. When you encounter this problem:    
+1. Please first check if you ran the easy-openvpn.connect-server with sudo.  
+2. As elaborated in [OpenVPN Client Setup](openvpn-client-setup.md), you need to connect the home plug
+   if you put the ovpn file into your HOME directory. Moreover, you need to change the owner of the ovpn file to 
+   root, otherwise you probably encounter the following issue: [dac_override denied](https://forum.snapcraft.io/t/docker-load-fails-with-permission-denied/1227/3)
 
-## Why no internet access even after OpenVPN connection is established?
+## Why no Internet access even after a connection to OpenVPN is established?
 
-This means you probably didn't reroute traffic to right network interface.
-The default nat device OpenVPN server relied on to route all traffic through OpenVPN is 'eth0'.
-But when you connected to a wireless network, the active network interface should be changed to 'wlan0' or others.
+This means you probably didn't reroute traffic to the right network interface.
+The default NAT device OpenVPN server relies on to route all traffic through OpenVPN is 'eth0'.
+When you connected to a wireless network, the active network interface should be changed to 'wlan0' or others.
 You need to configure it accordingly before launching the OpenVPN server.
-Please check it here for more details [OpenVPN Server Setup](openvpn-server-setup.md)
+Please check here for more details [OpenVPN Server Setup](openvpn-server-setup.md)
 
-**NOTE:** Remember to reload the snap to take effect after you changed nat device.
+**NOTE:** Remember to reload the snap to take effect after you changed NAT device.
