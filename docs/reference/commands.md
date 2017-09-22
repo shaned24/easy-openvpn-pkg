@@ -8,7 +8,7 @@ table_of_contents: true
 The easy-openvpn snap is developed based on OpenVPN. OpenVPN itself
 provides a lot of options to configure servers and clients. In order to make life easier
 for end users to deploy an OpenVPN server, the easy-openvpn snap offers a few command line tools which cover
-most commonly used scenarios to manage to the OpenVPN service, such as the setup server, create/revoke
+most commonly used scenarios to manage the OpenVPN service, such as the setup server, create/revoke
 client ovpns and so on. This section walks you through a brief introduction to each command.
 
 ## easy-openvpn.setup 
@@ -97,7 +97,7 @@ $ easy-openvpn.connect-server foo.ovpn
 ## easy-openvpn.status
 
 The *easy-openvpn.status* command helps to show the OpenVPN server's current status.
-The output includes OpenVPN the client list, routing tables and global stats.
+The output includes the OpenVPN client list, routing tables and global stats.
 
 ```
 $ easy-openvpn.status

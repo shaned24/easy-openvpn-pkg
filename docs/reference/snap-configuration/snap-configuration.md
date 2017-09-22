@@ -28,8 +28,8 @@ $ snap set easy-openvpn debug=1
 
 ## nopasswd
 
-The *nopasswd* option allows a user to generate private key without a passphrase during server setup.
-Normally, user should always generate private key with a passphrase for security reasons.
+The *nopasswd* option allows a user to generate a private key without a passphrase during server setup.
+Normally, a user should always generate private key with a passphrase for security reasons.
 This value is only used to setup an OpenVPN server in non-interactive mode for running spread test.
 
 Possible values are:
