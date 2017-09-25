@@ -62,6 +62,8 @@ we could reload the snap manually with the following commands:
 Add a client and enter the same passphrase you set during setup above. Use the
 .ovpn file to connect to your VPN server.
 
+    $ sudo easy-openvpn.connect-server <my-config>.ovpn
+
 ## Manage
 
 ### List clients
