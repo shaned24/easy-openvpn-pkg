@@ -1,17 +1,18 @@
 summary: Test configure hooks.
 
 execute: |
-    sudo easy-openvpn.help | MATCH ".*'debug', using default value: '0'"
-    sudo easy-openvpn.help | MATCH "'nopasswd', using default value: '0'"
+    sudo easy-openvpn.help | MATCH ".*'debug', using default value: 'false'"
+    sudo easy-openvpn.help | MATCH "'server.no-password', using default value: 'false'"
+    sudo easy-openvpn.help | MATCH "'server.natdevice', using default value: 'eth0'"
 
-    # set 'debug' to 1 and check the value in help command
-    sudo snap set easy-openvpn debug=1
+    # set 'debug' to 'true' and check the value in help command
+    sudo snap set easy-openvpn debug='true'
     sudo easy-openvpn.help | MATCH "'debug' current value set to: '1'.*"
 
-    # set 'nopasswd' to 1 and check the value in help command
-    sudo snap set easy-openvpn nopasswd=1
-    sudo easy-openvpn.help | MATCH "'nopasswd' current value set to: '1'.*"
+    # set 'no-password' to 'true' and check the value in help command
+    sudo snap set easy-openvpn server.no-password='true'
+    sudo easy-openvpn.help | MATCH "'server.no-password' current value set to: 'true'.*"
 
     # set 'natdevice' to 'wlan0' and check the value in help command
-    sudo snap set easy-openvpn natdevice=wlan0
-    sudo easy-openvpn.help | MATCH "'natdevice' current value set to: 'wlan0'.*"
+    sudo snap set easy-openvpn server.natdevice=wlan0
+    sudo easy-openvpn.help | MATCH "'server.natdevice' current value set to: 'wlan0'.*"

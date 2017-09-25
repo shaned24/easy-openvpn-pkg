@@ -23,14 +23,21 @@ if ! debug=$(snapctl get debug); then
     exit 1
 fi
 
-if ! nopasswd=$(snapctl get nopasswd); then
+if ! nopasswd=$(snapctl get server.no-password); then
     echo "Failed to get nopasswd option."
     exit 1
 fi
 
-if ! natdevice=$(snapctl get natdevice); then
+if ! natdevice=$(snapctl get server.natdevice); then
     echo "Failed to get natdevice option."
     exit 1
+fi
+
+# docker-openvpn is only in favor of '1/0', instead of 'true/false'.
+if [ "$debug" = "true" ]; then
+    debug=1
+elif [  "$debug" = "false" ]; then
+    debug=0
 fi
 
 cat << EOF > $PROFILE
@@ -46,7 +53,7 @@ EOF
 
 # Set default domain common name and call easy-rsa explicitly in batch mode.
 # It's helpful to execute spread test in non-interactive mode.
-if [ "$nopasswd" = "1" ]; then
+if [ "$nopasswd" = "true" ]; then
     # Ugly, set env var and pass it to ovpn.
     # export nopass=1 makes more sense but this is the least code changes.
     cat << EOF >> $PROFILE
