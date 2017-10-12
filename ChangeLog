@@ -1,3 +1,9 @@
+2017-10-12 easy-openvpn 2.3.10-4
+
+  [ Gary.Wang <Gary.Wang@canonical.com> ]
+  * Get rid of ChangeLog file from the easyrsa to avoid the conflicts during snapping.
+    Merge-Proposal: https://code.launchpad.net/~gary-wzl77/snappy-hwe-snaps/+git/easy-openvpn/+merge/332174
+
 2017-10-12 easy-openvpn 2.3.10-3
 
   [ unknown ]

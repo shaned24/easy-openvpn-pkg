@@ -1,5 +1,5 @@
 name: easy-openvpn
-version: 2.3.10-3
+version: 2.3.10-4
 summary: An easy-to-manage OpenVPN deployment.
 description: |
     OpenVPN snap with management scripts that simplify PKI and client
@@ -83,8 +83,11 @@ parts:
             easyrsa: usr/local/easyrsa/easyrsa
             openssl-1.0.cnf: usr/local/easyrsa/openssl-1.0.cnf
             x509-types: usr/local/easyrsa/x509-types
+        stage:
+            - -ChangeLog
         prime:
             - usr/local/easyrsa
+            - -ChangeLog
     scripts:
         plugin: dump
         source: .
