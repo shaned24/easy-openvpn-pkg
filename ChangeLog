@@ -1,0 +1,141 @@
+2017-10-12 easy-openvpn 2.3.10-3
+
+  [ unknown ]
+  * forgot .log
+    
+  *  adding google nameservers into the DHCP push
+    
+  * readme updates
+    
+  * Closes #2
+    
+  * See more information in merge proposal
+    
+  * Closes #5
+    
+  * See more information in merge proposal
+    
+  * fixing regexp to allow dashes in OVPN_SERVER_URL
+    
+  * Use --cap-add=NET_ADMIN instead of --privileged
+    
+  * avoid dup iptables rules
+    
+  * no connection block in client config
+    
+  * Fixed SIGTERM handling
+    
+  * Include optional configuration options
+    
+  * Return correct exit status in ovpn_getclient script
+    
+  * Disable default bash xtrace and fix but in variables
+    
+  * Wrote script to copy only the needed files to the docker host which runs the docker openvpn server.
+    
+  * Fix paranoid doc.
+    
+  * See more information in merge proposal
+    
+  * Using better example in docs.
+    
+  * Added variable OVPN_ADDITIONAL_CLIENT_CONFIG use arbitrary openvpn configuration options.
+    
+  * Optimized ovpn_copy_server_files script. No need to copy the config files.
+    
+  * Create ccd directory to prevent error if /etc is mounted read-only.
+    
+  * Remove dh param from client config
+    
+  * See more information in merge proposal
+    
+  * Quick read of ipv6 docs and small fixes.
+    
+  * Add a parameter to use TAP instead of TUN device.
+    
+  * Set custom OVPN_NATDEVICE when using --net=host to custom interface.
+    
+  * ovpn_copy_server_files: Ensure that no other keys then the one for the server is present.
+    
+  * Allow to change security related options tls-cipher, cipher and auth.
+    
+  * Updated documentation.
+    
+  * ovpn_copy_server_files: Copy openvpn.conf instead of symlinking locally.
+    
+  * Only setup networking for containers which need it.
+    
+  * Add Travis CI Testing
+    
+  * See more information in merge proposal
+    
+  * See more information in merge proposal
+    
+  * Switch to Alpine for Base
+    
+  * Support pushing custom DNS servers
+    
+  * Respect the -D flag
+    
+  * Closes #81
+    
+  * Split tunnels, as documented in #51
+    
+  * Added badges showing a few key facts next to the CI status.
+    
+  * Added documentation details on using TCP protocol.
+    
+  * Selinux policy and docs
+    
+  * Updated SELinux docs
+    
+  * Two factor authentication using a token application
+    
+  * Add openvpn.conf gerneration -f fragment directive option
+    
+  * Debugging tips added to readme
+    
+  * adding ovpn_listclients script
+    
+  * allow specifying extra config
+    
+  * Update README.md
+    
+  * See more information in merge proposal
+    
+  * Automatically creating CCD directory
+    
+  * Derive from alpine 3.4 instead of 3.2
+    
+  * Add "key-direction 1" to client .ovpn
+    
+  * Fix for Windows 10 DNS Leak
+    
+  * README: Add info on docker-compose
+    
+  * See more information in merge proposal
+    
+  * Disable user and group setup for openvpn server.
+    
+  * Fixed snap version.
+    
+
+  [ Gary.Wang <Gary.Wang@canonical.com> ]
+  * * Refactor to follow the upstream to get server setup scripts.
+    * Add spread tests.
+    * Add three commands. [revoke-client, connect-server, help]
+    * Support hooks to set env variables.
+    Merge-Proposal: https://code.launchpad.net/~gary-wzl77/snappy-hwe-snaps/+git/easy-openvpn/+merge/329298
+  * Support to specify natdevice via configure hook.
+    Note: 1. I don't bump up snap version since we didn't release 2.3.10-2 yet officially.
+          2. I'll create another MP with a proper docs structure.
+    Merge-Proposal: https://code.launchpad.net/~gary-wzl77/snappy-hwe-snaps/+git/easy-openvpn/+merge/330328
+  * Follow the guidelines to do the documentation.
+    
+    *. A general introduction to the easy-openvpn snap
+    *. A typical guide to the OpenVPN server and client setup
+    *. A listing of available commands with a brief description of each of the commands
+    Merge-Proposal: https://code.launchpad.net/~gary-wzl77/snappy-hwe-snaps/+git/easy-openvpn/+merge/330648
+  * Adjust snap configuration key name to "<category>.<name>".
+    Merge-Proposal: https://code.launchpad.net/~gary-wzl77/snappy-hwe-snaps/+git/easy-openvpn/+merge/330724
+
