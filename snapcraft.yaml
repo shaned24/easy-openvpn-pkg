@@ -1,5 +1,5 @@
 name: easy-openvpn
-version: 2.3.10-2
+version: 2.3.10-3
 summary: An easy-to-manage OpenVPN deployment.
 description: |
     OpenVPN snap with management scripts that simplify PKI and client
