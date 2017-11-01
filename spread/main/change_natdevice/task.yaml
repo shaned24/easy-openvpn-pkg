@@ -1,0 +1,42 @@
+summary: Test change natdevice to 'wlan0'.
+
+execute: |
+    . $TESTSLIB/utilities.sh
+    # so enable to setup server in non-interactive mode 
+    sudo snap set easy-openvpn server.no-password='true'
+
+    # change natdevice to 'eth0'.
+    # It should be set to 'wlan0' while connecting to a wireless network
+    sudo snap set easy-openvpn server.natdevice='eth0'
+
+    # setup openvpn server
+    sudo easy-openvpn.setup -u "udp://${SERVER_IP}"
+
+    # launch openvpn server
+    sudo service ${SERVICE_UNIT} start
+
+    # wait openvpn server to launch
+    wait_for_systemd_service ${SERVICE_UNIT}
+    sudo journalctl -n 10 --no-pager -u ${SERVICE_UNIT} | MATCH 'Initialization Sequence Completed'
+
+    # add a client
+    sudo easy-openvpn.add-client foo > foo.ovpn
+
+    # change foo.ovpn owner to avoid dac_override denied in snappy world.
+    sudo chown root.root foo.ovpn
+
+    # run openvpn client as daemon to connect server
+    sudo easy-openvpn.connect-server foo.ovpn --daemon
+
+    # check currrent client connection status
+    sleep 90
+    sudo nohup easy-openvpn.status &>status_log &
+
+    sleep 1
+    client_info=$(sed '/^Common/,/^ROUTING/{//!b};d;//d' status_log)
+    name=$(echo "${client_info}" | awk -F',' '{print $1}')
+    rx=$(echo "${client_info}" | awk -F',' '{print $3}')
+    tx=$(echo "${client_info}" | awk -F',' '{print $4}')
+    test "${name}" = "foo"
+    test "${rx}" -gt "0"
+    test "${tx}" -gt "0"

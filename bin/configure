@@ -1,0 +1,66 @@
+#!/bin/sh
+#
+# Copyright (C) 2017 Canonical Ltd
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 3 as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+PROFILE="${SNAP_DATA}/easy-openvpn.profile"
+
+test -f $PROFILE && rm $PROFILE
+
+if ! debug=$(snapctl get debug); then
+    echo "Failed to get debug option."
+    exit 1
+fi
+
+if ! nopasswd=$(snapctl get server.no-password); then
+    echo "Failed to get nopasswd option."
+    exit 1
+fi
+
+if ! natdevice=$(snapctl get server.natdevice); then
+    echo "Failed to get natdevice option."
+    exit 1
+fi
+
+# docker-openvpn is only in favor of '1/0', instead of 'true/false'.
+if [ "$debug" = "true" ]; then
+    debug=1
+elif [  "$debug" = "false" ]; then
+    debug=0
+fi
+
+cat << EOF > $PROFILE
+export OPENVPN=$SNAP_DATA/openvpn
+export EASYRSA=$SNAP/usr/local/easyrsa
+export EASYRSA_PKI=$SNAP_DATA/openvpn/pki
+export EASYRSA_VARS_FILE=$SNAP_DATA/openvpn/vars
+export PATH=$SNAP/usr/local/easyrsa:$SNAP/usr/sbin:$SNAP/usr/bin:$SNAP/sbin:$SNAP/bin:$PATH
+export DEBUG=$debug
+export NOPASSWD=$nopasswd
+export OVPN_NATDEVICE=$natdevice
+EOF
+
+# Set default domain common name and call easy-rsa explicitly in batch mode.
+# It's helpful to execute spread test in non-interactive mode.
+if [ "$nopasswd" = "true" ]; then
+    # Ugly, set env var and pass it to ovpn.
+    # export nopass=1 makes more sense but this is the least code changes.
+    cat << EOF >> $PROFILE
+export nopass=nopass
+export EASYRSA_BATCH=1
+export EASYRSA_REQ_CN=SNAPPY_SPREAD_TEST
+EOF
+fi
+
+chmod 600 $PROFILE

@@ -1,0 +1,8 @@
+summary: Test all necessary plugs/slots are connected upon installation
+
+execute: |
+    snap interfaces | MATCH ":network +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":network-bind +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":network-control +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":firewall-control +[a-z,-]*easy-openvpn"
+    snap interfaces | MATCH ":home +[a-z,-]*easy-openvpn"

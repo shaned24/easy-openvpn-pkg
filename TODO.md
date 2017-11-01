@@ -16,13 +16,12 @@ We disable user and group setup for openvpn server for the time being as an open
 
 ## generate some clients and test connection is working
 
-## simplify things further
-- single command to set up server
-- single command to create/revoke client ovpns
-
 # DONE
 - figure out why iptables nat rules aren't allowed with firewall-control
   - need to snap connect :firewall-control, :network-control
 - tun/tap access for openvpn in strict mode
   - read/write acccess to /dev/net/tun is allowed in snapd with network-control connected
-
+- single command to set up server
+  - please check easy-openvpn.setup command
+- single command to create/revoke client ovpns
+  - please check easy-openvpn.add-client command
