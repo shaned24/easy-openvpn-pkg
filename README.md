@@ -10,6 +10,10 @@ We disable user and group setup for OpenVPN server for the time being as an
 open bug can be found on Launchpad. [lp#1606510](https://bugs.launchpad.net/snappy/+bug/1606510).
 Adding [user and group management](https://forum.snapcraft.io/t/multiple-users-and-groups-in-snaps/1461/2) support is on the roadmap of snapd. We'll support it accordingly when the feature lands. See [TODO](TODO.md) for current issues.
 
+# License
+
+Easy-openvpn snap is licensed under the terms of the GPLv3 and Copyright by Canonical Ltd.
+
 # Operate
 
 Commands subject to change as I refine things, but here goes:
