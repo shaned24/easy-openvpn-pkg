@@ -29,7 +29,7 @@ apps:
     show-client:
         command: bin/ovpn_getclient
     connect-server:
-        command: openvpn --config
+        command: bin/ovpn_connect
         plugs:
             - home
             - network-control
