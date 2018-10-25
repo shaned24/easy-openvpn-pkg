@@ -1,4 +1,4 @@
-name: easy-openvpn
+name: shaned24-easy-openvpn
 version: 2.3.10-4
 summary: An easy-to-manage OpenVPN deployment.
 description: |
@@ -33,6 +33,11 @@ apps:
         plugs:
             - home
             - network-control
+    connect-server-service:
+            command: bin/ovpn_connect /home/openvpn/vpn.ovpn
+            plugs:
+                - home
+                - network-control
     status:
         command: bin/ovpn_status
     help:
